@@ -1,2 +1,3 @@
-# dsp_Typhoon_Taipower
-Data competition
+# Taipower Company Data Competition
+
+![](pic/githubCover.png)

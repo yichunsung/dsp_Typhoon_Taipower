@@ -1,0 +1,9 @@
+Event,type,typhoon_1_name,typhoon_2_name,typhoon_1_size,typhoon_2_size,elec_stop,typhoon_1_c_name,typhoon_2_c_name,year
+Hagibis,single_typhoon,HAGIBIS,na,輕度,na,2444,哈吉貝,na,2014
+Chan-hom,single_typhoon,CHAN-HOM,na,中度,na,27340,昌鴻,na,2015
+Dujuan,single_typhoon,DUJUAN,na,強烈,na,2354238,杜鵑,na,2015
+Soudelor,single_typhoon,SOUDELOR,na,強烈,na,4501064,蘇迪勒,na,2015
+Fung-wong,single_typhoon,FUNG-WONG,na,輕度,na,96187,鳳凰,na,2014
+Matmo,single_typhoon,MATMO,na,中度,na,486027,麥德姆,na,2014
+Nepartak,single_typhoon,NEPARTAK,na,強烈,na,278533,尼伯特,na,2016
+MerantiAndMalakas,double_typhoon,MERANTI,MALAKAS,強烈,中度,997241,莫蘭蒂,馬勒卡,2016
