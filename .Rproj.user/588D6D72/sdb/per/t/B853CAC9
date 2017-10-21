@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1508571218472.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B853CAC9",
+    "lastKnownWriteTime" : 2484628536874007931,
+    "last_content_update" : 1508571218472,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "ABFF9AEA",
+        "caption" : "event_df",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=event_df&cache_key=ABFF9AEA",
+        "displayedObservations" : 5,
+        "environment" : "",
+        "object" : "event_df",
+        "preview" : 0,
+        "totalObservations" : 5,
+        "variables" : 7
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

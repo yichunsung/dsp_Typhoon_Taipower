@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(tidyverse)\n#install.packages('data.table')\nlibrary(data.table)\nlibrary(magrittr)\n# 載入颱風停電戶資料\n#train <- read.csv(\"./data/train.csv\", encoding = \"UTF-8\")\ntrain <- fread(\"./data/train.csv\", encoding = \"UTF-8\")\nsubmit <- fread(\"./data/submit.csv\", encoding = \"UTF-8\")\n\n# 加入人口戶數資料\n# 資料來源為政府資料開放平臺(https://data.gov.tw/dataset/32973#r0)\n#family <- read.csv(\"./data/opendata10603M030.csv\")\nfamily <- fread(\"./data/opendata10603M030.csv\", encoding = \"UTF-8\")\nfamily <- family[-1, c(2,4)]\nfamily$site_id <- gsub(x = family$site_id, pattern = \"臺\", replacement = \"台\")\nfamily$site_id <- gsub(x = family$site_id, pattern = \"台東\", replacement = \"臺東\")\nfamily$site_id <- gsub(x = family$site_id, pattern = \"　\", replacement = \"\")\nnames(family)[1] <- \"縣市行政區\"\nfamily$household_no <- as.character(family$household_no) %>% as.numeric()\nfamily <- group_by(family, 縣市行政區) %>% \n  summarise(household = mean(household_no)) \ntrain <- left_join(train, family, by = \"縣市行政區\")\n# 屏東縣霧臺鄉有1049戶\ntrain$household[train$縣市行政區 == \"屏東縣霧臺鄉\"] <- rep(1049, 6)\n# 雲林縣臺西鄉有8727戶\ntrain$household[train$縣市行政區 == \"雲林縣臺西鄉\"] <- rep(8727, 15)\n# 高雄市三民區有134958戶\ntrain$household[train$縣市行政區 == \"高雄市三民區\"] <- rep(134958, 86)\n# 高雄市鳳山區有134958戶\ntrain$household[train$縣市行政區 == \"高雄市鳳山區\"] <- rep(138016, 76)\n\nsubmit <- left_join(submit, train[, c(3, 14:24)], by = \"VilCode\")\n\n\n# 加入特各颱風風力資料\n# 資料來源為颱風資料庫(http://rdc28.cwb.gov.tw/)\n\ngust <- read.csv(\"./data/gust.csv\")\nnames(gust)[1] <- \"CityName\" \ntypeOfCity <- unique(train$CityName) #%>% length() %>% as.numeric()\n\nTrainMergeGust <- merge(train, gust, all.x = T, by = \"CityName\", sort = F)\n\nsoudelor <- TrainMergeGust[c(1:4, 8, 13:16)] %>% cbind(., TYname = rep(\"soudelor\", nrow(TrainMergeGust)))  %>% as.matrix()\ndujuan <- TrainMergeGust[c(1:4, 7, 13:14, 17, 18)] %>% cbind(., TYname = rep(\"dujuan\", nrow(TrainMergeGust))) %>% as.matrix()\nmatmo <- TrainMergeGust[c(1:4, 10, 13:14, 21, 22)] %>% cbind(., TYname = rep(\"matmo\", nrow(TrainMergeGust))) %>% as.matrix()\nnepartak <- TrainMergeGust[c(1:4, 11, 13:14, 23, 24)] %>% cbind(., TYname = rep(\"nepartak\", nrow(TrainMergeGust))) %>% as.matrix()\nmeranti <- TrainMergeGust[c(1:4, 12, 13:14, 25, 26)] %>% cbind(., TYname = rep(\"meranti&Mal\", nrow(TrainMergeGust))) %>% as.matrix()\n\nnew_train <- rbind(soudelor, dujuan, matmo, nepartak, meranti) %>% as.data.frame()\n\nnames(new_train)[5] <- \"power_failure\"\nnames(new_train)[8:9] <- c(\"maxWind\", \"gust\")\nwrite.csv(new_train, \"c://dsp_Typhoon_Taipower/data/newTrain.csv\")\n# submit dataset\nNesatAndHaitang_submit <- submit[1:5] %>% cbind(., \n                                                縣市行政區 = TrainMergeGust$縣市行政區, \n                                                household = TrainMergeGust$household, \n                                                maxWind =TrainMergeGust$nesat_maxWind, \n                                                gust = TrainMergeGust$nesat_gust)\n\nMegi_submit <- submit[c(1:4, 6)] %>% cbind(., \n                                           縣市行政區 = TrainMergeGust$縣市行政區, \n                                           household = TrainMergeGust$household,\n                                           maxWind =TrainMergeGust$megi_maxWind, \n                                           gust = TrainMergeGust$megi_gust)\nwrite.csv(NesatAndHaitang_submit, \"c://dsp_Typhoon_Taipower/data/NesatAndHaitang_submit.csv\")\nwrite.csv(Megi_submit, \"c://dsp_Typhoon_Taipower/data/Megi_submit.csv\")\n\n",
+    "created" : 1508490170681.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3740494187",
+    "id" : "26819142",
+    "lastKnownWriteTime" : 1508405029,
+    "last_content_update" : 1508405029,
+    "path" : "C:/comp/dsp_Typhoon_Taipower/R/playground_modifyByYCS.R",
+    "project_path" : "R/playground_modifyByYCS.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

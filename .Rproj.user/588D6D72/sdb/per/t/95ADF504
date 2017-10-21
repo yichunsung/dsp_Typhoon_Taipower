@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#\nlibrary(tidyverse)\nlibrary(data.table)\nlibrary(magrittr)\nsetwd(\"c://comp/dsp_Typhoon_Taipower\")\ntrainset <- read.csv(\"data/newTrain.csv\")\ntrainset <- trainset[-1]\nnames(trainset)[6] <- \"area\"\ntyList <- read.csv('data/new_cwb_database.csv')\nevent_df <- read.csv('data/events_imfor.csv')\nevent_df <- event_df[c(3:4, 6:8), c(1:6, 10)]\nevent_df$typhoon_1_size <- c(10, 10, 5, 10, 10)\nevent_df$typhoon_2_size <- c(0, 0, 0, 0, 5)\nevent_name <-  c(\"dujuan\", \"soudelor\", \"matmo\", \"nepartak\",  \"meranti&Mal\")\nevent_df$Event<- event_name\n# unique(trainset$TYname)\nevent_ty <- c(\"DUJUAN\", \"SOUDELOR\", \"MATMO\", \"NEPARTAK\", 'MERANTI')\n\ntyphoon_list <- data.frame()\nfor(i in 1:5){\n  typhoon_df <- subset(tyList, tyList$name == event_ty[[i]] & tyList$year == event_df$year[[i]])\n  typhoon_df$name <- event_name[i]\n  typhoon_df <- typhoon_df %>% as.matrix()\n  typhoon_list <- rbind(typhoon_list, typhoon_df)\n}\n\ntyphoon_list <- typhoon_list[-1:-4]\nnames(typhoon_list)[1] <- \"Event\"\nf_typhoonList <- merge(typhoon_list, event_df, all.x = TRUE, all.y = TRUE, by = \"Event\", sort = FALSE)\nnames(trainset)[10] <- \"Event\"\nnew_trainSet <- merge(trainset, f_typhoonList, all.x = TRUE, all.y = TRUE, by = \"Event\", sort = FALSE)\n\nwrite.csv(new_trainSet, \"data/finial_train.csv\")\n",
+    "created" : 1508490169213.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3580261332",
+    "id" : "95ADF504",
+    "lastKnownWriteTime" : 1508571996,
+    "last_content_update" : 1508571996512,
+    "path" : "C:/comp/dsp_Typhoon_Taipower/R/nweTrainDataBuilding.R",
+    "project_path" : "R/nweTrainDataBuilding.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
