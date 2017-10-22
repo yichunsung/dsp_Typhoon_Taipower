@@ -12,15 +12,15 @@
     "path" : null,
     "project_path" : null,
     "properties" : {
-        "cacheKey" : "160B6258",
+        "cacheKey" : "5C9356A9",
         "caption" : "new_trainSet",
-        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=new_trainSet&cache_key=160B6258",
-        "displayedObservations" : 39255,
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=new_trainSet&cache_key=5C9356A9",
+        "displayedObservations" : "39255",
         "environment" : "",
         "object" : "new_trainSet",
-        "preview" : 0,
-        "totalObservations" : 39255,
-        "variables" : 24
+        "preview" : "0",
+        "totalObservations" : "39255",
+        "variables" : "24"
     },
     "relative_order" : 8,
     "source_on_save" : false,
