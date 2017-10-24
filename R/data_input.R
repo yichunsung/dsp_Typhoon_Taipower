@@ -39,3 +39,24 @@ test_NH <- data.frame(
 )
 result_NH <- predict(mlm, newdata = test_NH)
 result_NH
+
+# Megi
+input_MG <- read.csv("data/Megi_submit.csv")
+test_MG <- data.frame(
+  household = input_MG$household,
+  maxWind = input_MG$maxWind,
+  gust = input_MG$gust,
+  life_period = input_MG$life_period,
+  center_lowest_pa = input_MG$center_lowest_pa,
+  center_stronger_wind = input_MG$center_stronger_wind,
+  strom_7_R = input_MG$strom_7_R,
+  strom_10_R = input_MG$strom_10_R,
+  warming_times = input_MG$warming_times,
+  typhoon_1_size = input_MG$typhoon_1_size,
+  typhoon_2_size = input_MG$typhoon_2_size
+)
+result_MG <- predict(mlm, newdata = test_MG)
+result_MG
+
+resulit <- data.frame(result_MG, result_NH)
+write.csv(resulit, "result/result.csv")
